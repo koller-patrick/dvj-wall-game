@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Consumable
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,10 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 3787506169
+    locked: 0
+  - name: View
+    uniqueID: 3897139147
+    locked: 0
+  - name: Shadow
+    uniqueID: 550083677
     locked: 0
