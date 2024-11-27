@@ -462,8 +462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fe831bf36bd8e46bfeb2eef021aa48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeDuration: 10
-  inactiveDuration: 5
+  activeDuration: 5
+  inactiveDuration: 0.5
 --- !u!1 &866370323
 GameObject:
   m_ObjectHideFlags: 0
