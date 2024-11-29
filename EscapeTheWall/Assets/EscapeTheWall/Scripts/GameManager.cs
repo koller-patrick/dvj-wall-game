@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-
     private bool gameEnded = false;
-    private bool isPaused = false;  
+    private bool isPaused = false;
+    private int levelIndex = 0;
 
     [SerializeField]
     private TMPro.TextMeshProUGUI timerText;
@@ -38,5 +37,17 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void LoadNextLevel()
+    {
+        levelIndex++;
 
+        if (levelIndex < 2)
+        {
+            SceneManager.LoadScene(levelIndex);
+        }
+        else
+        {
+            Application.Quit();
+        }
+    }
 }

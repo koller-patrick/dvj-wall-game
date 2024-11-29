@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public  class MovingPieces : MonoBehaviour{
-
-
-
+public  class MovingPieces : MonoBehaviour
+{
     protected GameObject WhatInThisPosition(Vector2 position)
     {
         Collider2D[] colliders = Physics2D.OverlapPointAll(position);
@@ -19,6 +15,4 @@ public  class MovingPieces : MonoBehaviour{
 
         return null;
     }
-
-
 }
