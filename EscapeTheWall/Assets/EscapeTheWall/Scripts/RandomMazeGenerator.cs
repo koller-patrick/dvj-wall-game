@@ -7,13 +7,13 @@ public class RandomMazeGenerator : MonoBehaviour
     const int HalfSizeMap = 11;
     const int Densitiy = 13;
 
-    public Tile wallTile;
+    public Tile[] houseWallTiles;
     public Tile floorTile;
 
     public GameObject player;
     public GameObject goalPrefab;
 
-    private Tilemap wallTilemap;
+    private Tilemap[] houseTilemaps;
     private Tilemap floorTilemap;
 
     private Vector3Int playerStartPosition;
@@ -28,15 +28,18 @@ public class RandomMazeGenerator : MonoBehaviour
 
     private void SetupTilemaps()
     {
-        // Create separate Tilemap for walls
-        GameObject wallTilemapObject = new GameObject("WallTilemap");
-        wallTilemapObject.transform.parent = this.transform;
-        wallTilemap = wallTilemapObject.AddComponent<Tilemap>();
-        var wallRenderer = wallTilemapObject.AddComponent<TilemapRenderer>();
-        wallRenderer.sortingLayerName = "Foreground"; // Assign sorting layer
+        houseTilemaps = new Tilemap[houseWallTiles.Length];
+        for (int i = 0; i < houseWallTiles.Length; i++)
+        {
+            GameObject houseTilemapObject = new GameObject($"HouseTilemap_{i + 1}");
+            houseTilemapObject.transform.parent = this.transform;
+            houseTilemaps[i] = houseTilemapObject.AddComponent<Tilemap>();
+            var renderer = houseTilemapObject.AddComponent<TilemapRenderer>();
+            renderer.sortingLayerName = "Foreground";
 
-        // Add Collider and Rigidbody to the wall tilemap
-        AddCollidersAndPhysics(wallTilemapObject);
+            // Add Collider and Rigidbody to the wall tilemap
+            AddCollidersAndPhysics(houseTilemapObject);
+        }
 
         // Create separate Tilemap for floors
         GameObject floorTilemapObject = new GameObject("FloorTilemap");
@@ -66,7 +69,11 @@ public class RandomMazeGenerator : MonoBehaviour
 
     private void GenerateMaze()
     {
-        wallTilemap.ClearAllTiles();
+        // Clear all tiles
+        foreach (var houseTilemap in houseTilemaps)
+        {
+            houseTilemap.ClearAllTiles();
+        }
         floorTilemap.ClearAllTiles();
 
         for (int x = -HalfSizeMap; x < HalfSizeMap; x++)
@@ -76,7 +83,8 @@ public class RandomMazeGenerator : MonoBehaviour
                 Vector3Int tilePosition = new Vector3Int(x, y, 0);
                 if (IsWall(x, y))
                 {
-                    wallTilemap.SetTile(tilePosition, wallTile);
+                    int houseIndex = (Mathf.Abs(x + y) % houseTilemaps.Length); // Alternate between house tilemaps
+                    houseTilemaps[houseIndex].SetTile(tilePosition, houseWallTiles[houseIndex]);
                 }
                 else
                 {

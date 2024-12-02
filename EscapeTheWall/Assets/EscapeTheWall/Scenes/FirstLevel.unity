@@ -701,7 +701,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a456859e50c4e414c9461c6d76f78593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallTile: {fileID: 11400000, guid: bb18428c87143cb4a923026f332b561e, type: 2}
+  houseWallTiles:
+  - {fileID: 11400000, guid: 8b130979e207ca446be7d339709fd9c5, type: 2}
+  - {fileID: 11400000, guid: 1d28581ee7e750e438a5e59a194835db, type: 2}
+  - {fileID: 11400000, guid: 877e71e80bc334e409dbf9b53da4c11f, type: 2}
+  - {fileID: 11400000, guid: 03bf681bb53cc174fb74997122764901, type: 2}
   floorTile: {fileID: 11400000, guid: 6b4d448833ee3714cb617b2b18838af6, type: 2}
   player: {fileID: 561287609}
   goalPrefab: {fileID: 7266548057338609309, guid: 250fbc043e852184596e0a9e0b05bbd3, type: 3}
