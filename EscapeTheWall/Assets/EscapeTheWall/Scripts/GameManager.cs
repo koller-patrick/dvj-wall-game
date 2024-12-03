@@ -3,16 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    private bool gameEnded = false;
-    private bool isPaused = false;
     private int levelIndex = 0;
+    private bool timerIsRunning = false;
 
     [SerializeField]
     private TMPro.TextMeshProUGUI timerText;
 
     [SerializeField]
-    private float timeRemaining = 30f; 
-    private bool timerIsRunning = false;
+    private float timeRemaining = 30f;
+
+    public bool HasGameEnded = false;
 
     void Start()
     {
@@ -33,6 +33,8 @@ public class GameManager : Singleton<GameManager>
             {
                 timeRemaining = 0;
                 timerIsRunning = false;
+                HasGameEnded = true;
+                timerText.text = "Game over!";
             }
         }
     }

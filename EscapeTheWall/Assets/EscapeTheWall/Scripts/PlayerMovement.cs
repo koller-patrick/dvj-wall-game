@@ -13,7 +13,7 @@ public class PlayerMovement : MovingPieces
     void Update()
     {
         // Check if the player is not already moving
-        if (!isMoving)
+        if (!isMoving && !GameManager.Instance.HasGameEnded)
         {
             Vector2 addThisVector = Vector2.zero;
 

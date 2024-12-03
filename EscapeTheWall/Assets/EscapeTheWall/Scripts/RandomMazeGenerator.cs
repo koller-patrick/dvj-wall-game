@@ -106,29 +106,32 @@ public class RandomMazeGenerator : MonoBehaviour
 
     private void PlacePlayerAndGoal()
     {
-        // Ensure player starts at a valid position on the floor tilemap
-        playerStartPosition = FindRandomFloorPosition();
+        // Player starts in the bottom-left corner of the maze
+        playerStartPosition = FindRandomFloorPosition(-HalfSizeMap / 2, -HalfSizeMap, -HalfSizeMap / 2, -HalfSizeMap);
         player.transform.position = floorTilemap.CellToWorld(playerStartPosition) + new Vector3(0.5f, 0.5f, 0);
 
-        // Ensure goal is placed at a valid position on the floor tilemap and is reachable
+        // Goal is placed in the top-right corner of the maze
         do
         {
-            goalPosition = FindRandomFloorPosition();
+            goalPosition = FindRandomFloorPosition(HalfSizeMap / 2, HalfSizeMap, HalfSizeMap / 2, HalfSizeMap);
         } while (!IsPathReachable(playerStartPosition, goalPosition));
 
-        Instantiate(goalPrefab, floorTilemap.CellToWorld(goalPosition) + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+        // Instantiate the goal object at the valid position
+        GameObject goal = Instantiate(goalPrefab, floorTilemap.CellToWorld(goalPosition) + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
     }
 
-    private Vector3Int FindRandomFloorPosition()
+    private Vector3Int FindRandomFloorPosition(int minX, int maxX, int minY, int maxY)
     {
         int x, y;
+        Vector3Int position;
         do
         {
-            x = Random.Range(-HalfSizeMap, HalfSizeMap);
-            y = Random.Range(-HalfSizeMap, HalfSizeMap);
-        } while (floorTilemap.GetTile(new Vector3Int(x, y, 0)) != floorTile);
+            x = Random.Range(minX, maxX);
+            y = Random.Range(minY, maxY);
+            position = new Vector3Int(x, y, 0);
+        } while (floorTilemap.GetTile(position) != floorTile); // Ensure the position is on the floor tilemap
 
-        return new Vector3Int(x, y, 0);
+        return position;
     }
 
     private bool IsPathReachable(Vector3Int start, Vector3Int end)
