@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -14,13 +15,16 @@ public class GameManager : Singleton<GameManager>
 
     public bool HasGameEnded = false;
 
-    void Start()
+    [SerializeField]
+    private GameObject gameOverMenuPrefab; // Reference to the Game Over menu prefab
+
+    private void Start()
     {
         timerText.text = "Time: 30";
         timerIsRunning = true;
     }
 
-    void Update()
+    private void Update()
     {
         if (timerIsRunning)
         {
@@ -35,8 +39,25 @@ public class GameManager : Singleton<GameManager>
                 timerIsRunning = false;
                 HasGameEnded = true;
                 timerText.text = "Game over!";
+                ShowGameOverMenu();
             }
         }
+    }
+
+    private void ShowGameOverMenu()
+    {
+        // Instantiate the Game Over menu
+        GameObject gameOverMenu = Instantiate(gameOverMenuPrefab);
+
+        // Set up the button listener
+        Button restartButton = gameOverMenu.GetComponentInChildren<Button>();
+        restartButton.onClick.AddListener(RestartGame);
+    }
+
+    public void RestartGame()
+    {
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void LoadNextLevel()
