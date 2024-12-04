@@ -150,7 +150,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.003, y: 0.001, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 946068400}
@@ -295,7 +295,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.34045562, g: 0.78113204, b: 0.737215, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -683,7 +683,7 @@ Transform:
   m_GameObject: {fileID: 1609651279}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.56, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -702,11 +702,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   houseWallTiles:
-  - {fileID: 11400000, guid: 8b130979e207ca446be7d339709fd9c5, type: 2}
-  - {fileID: 11400000, guid: 1d28581ee7e750e438a5e59a194835db, type: 2}
-  - {fileID: 11400000, guid: 877e71e80bc334e409dbf9b53da4c11f, type: 2}
   - {fileID: 11400000, guid: 03bf681bb53cc174fb74997122764901, type: 2}
-  floorTile: {fileID: 11400000, guid: 6b4d448833ee3714cb617b2b18838af6, type: 2}
+  - {fileID: 11400000, guid: 03bf681bb53cc174fb74997122764901, type: 2}
+  floorTile: {fileID: 11400000, guid: 8b130979e207ca446be7d339709fd9c5, type: 2}
   player: {fileID: 561287609}
   goalPrefab: {fileID: 7266548057338609309, guid: 250fbc043e852184596e0a9e0b05bbd3, type: 3}
 --- !u!1 &1679438567
@@ -740,6 +738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 1969929867}
   timeRemaining: 30
+  HasGameEnded: 0
 --- !u!4 &1679438569
 Transform:
   m_ObjectHideFlags: 0
