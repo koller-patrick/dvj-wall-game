@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private float timeRemaining = 30f;
 
-    public bool HasGameEnded = false;
+    private bool hasGameEnded = false;
 
     [SerializeField]
     private GameObject gameOverMenuPrefab; // Reference to the Game Over menu prefab
@@ -37,7 +37,7 @@ public class GameManager : Singleton<GameManager>
             {
                 timeRemaining = 0;
                 timerIsRunning = false;
-                HasGameEnded = true;
+                hasGameEnded = true;
                 timerText.text = "Game over!";
                 ShowGameOverMenu();
             }
@@ -72,5 +72,18 @@ public class GameManager : Singleton<GameManager>
         {
             Application.Quit();
         }
+    }
+
+    public bool IsGameOver()
+    {
+        return hasGameEnded;
+    }
+
+    public void SetGameOver()
+    {
+        hasGameEnded = true;
+        timerIsRunning = false;
+        timerText.text = "Game over!";
+        ShowGameOverMenu();
     }
 }
