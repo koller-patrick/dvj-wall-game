@@ -1935,7 +1935,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 89363652}
   timeRemaining: 30
-  HasGameEnded: 0
   gameOverMenuPrefab: {fileID: 7055502797788153999, guid: 15a849302a7918a4fb1ddff4f2072779, type: 3}
 --- !u!4 &2103401005
 Transform:
