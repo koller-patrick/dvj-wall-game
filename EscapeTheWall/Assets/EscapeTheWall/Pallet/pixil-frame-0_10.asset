@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Space Cave Tileset_35
+  m_Name: pixil-frame-0_10
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -641944532, guid: 1f169d533a3736243aa04c5c5616c0a6, type: 3}
-  m_Color: {r: 0.3372549, g: 0.38431376, b: 0.96470594, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 739fc4cc726961c449c022680c1efb2c, type: 3}
+  m_Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
   m_Transform:
     e00: 1
     e01: 0

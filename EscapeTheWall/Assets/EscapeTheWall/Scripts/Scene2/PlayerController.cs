@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool canClimb;
+    private bool isGrounded;
 
     void Start()
     {
@@ -34,14 +35,16 @@ public class PlayerController : MonoBehaviour
 
     void HandleClimb()
     {
+        Debug.Log("isgrounded: " + isGrounded);
         if (canClimb)
         {
             float climbInput = Input.GetAxis("Vertical");
             rb.velocity = new Vector2(rb.velocity.x, climbInput * ClimbSpeed);
         }
-        else
+        else if (!isGrounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.velocity = new Vector2(rb.velocity.x, -1);
+            rb.rotation = Quaternion.identity;
         }
     }
 
@@ -52,6 +55,10 @@ public class PlayerController : MonoBehaviour
             canClimb = true; // Allow climbing when touching a wall
             rb.gravityScale = 0; // Disable gravity while climbing
         }
+        else if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -60,6 +67,10 @@ public class PlayerController : MonoBehaviour
         {
             canClimb = false; // Disable climbing when not touching a wall
             rb.gravityScale = 1; // Re-enable gravity
+        }
+        else if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
         }
     }
 
