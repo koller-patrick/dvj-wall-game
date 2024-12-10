@@ -101,5 +101,13 @@ public class PlayerController : MonoBehaviour
             Consumable consumable = other.GetComponent<Consumable>();
             consumable.Consume();
         }
+        else if (other.CompareTag("BarbedWire"))
+        {
+            Debug.Log("Player has been touched barbed wire --> game over!");
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.SetGameOver();
+            }
+        }
     }
 }

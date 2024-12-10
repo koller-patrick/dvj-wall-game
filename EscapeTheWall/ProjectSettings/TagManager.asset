@@ -8,6 +8,7 @@ TagManager:
   - VisionCone
   - Ground
   - Wall
+  - BarbedWire
   layers:
   - Default
   - TransparentFX
