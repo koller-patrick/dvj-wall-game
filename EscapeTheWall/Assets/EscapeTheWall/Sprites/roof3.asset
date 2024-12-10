@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: roof3
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 3433323e1a99454468eda7431737c321, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7283019, g: 0.7283019, b: 0.7283019, a: 1}
   m_Transform:
     e00: 1
     e01: 0
