@@ -64,7 +64,7 @@ public class GameManager : Singleton<GameManager>
     {
         levelIndex++;
 
-        if (levelIndex < 2)
+        if (levelIndex < 3)
         {
             SceneManager.LoadScene(levelIndex);
         }
