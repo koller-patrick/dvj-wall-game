@@ -4,11 +4,11 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float MoveSpeed = 5f;
-    public float JumpForce = 1f;
+    public float ClimbSpeed = 5f;
     public float FallMultiplier = 2.5f;
 
     private Rigidbody2D rb;
-    private bool isGrounded;
+    private bool canClimb;
 
     void Start()
     {
@@ -18,51 +18,48 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance == null || GameManager.Instance.IsGameOver())
-            return;
-
-        if (!isGrounded)
         {
-            // Make player fall
-            rb.AddForce(new Vector2(0, -1 * FallMultiplier));
+            return;
         }
 
         Move();
-        HandleJump();
+        HandleClimb();
     }
 
     void Move()
     {
-        float move = Input.GetAxis("Horizontal");
-        rb.AddForce(new Vector2(move * MoveSpeed, 0));
+        float moveInput = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(moveInput * MoveSpeed, rb.velocity.y);
     }
 
-    void HandleJump()
+    void HandleClimb()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (canClimb)
         {
-            Jump();
+            float climbInput = Input.GetAxis("Vertical");
+            rb.velocity = new Vector2(rb.velocity.x, climbInput * ClimbSpeed);
         }
-    }
-
-    void Jump()
-    {
-        rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
-        isGrounded = false;
+        else
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Wall"))
         {
-            isGrounded = true;
+            canClimb = true; // Allow climbing when touching a wall
+            rb.gravityScale = 0; // Disable gravity while climbing
         }
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Wall"))
         {
-            isGrounded = false;
+            canClimb = false; // Disable climbing when not touching a wall
+            rb.gravityScale = 1; // Re-enable gravity
         }
     }
 
