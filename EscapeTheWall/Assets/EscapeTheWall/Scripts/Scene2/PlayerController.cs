@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
 
     void HandleClimb()
     {
-        Debug.Log("isgrounded: " + isGrounded);
         if (canClimb)
         {
             float climbInput = Input.GetAxis("Vertical");
@@ -84,6 +83,11 @@ public class PlayerController : MonoBehaviour
             {
                 GameManager.Instance.SetGameOver();
             }
+        }
+        else if (other.CompareTag("Consumable"))
+        {
+            Consumable consumable = other.GetComponent<Consumable>();
+            consumable.Consume();
         }
     }
 }

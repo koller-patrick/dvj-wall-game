@@ -16,6 +16,8 @@ public class BackgroundFollower : MonoBehaviour
     void LateUpdate()
     {
         // Match the background position to the camera position, plus any offset
-        transform.position = mainCamera.transform.position + offset;
+        Vector3 newPosition = mainCamera.transform.position + offset;
+        newPosition.z = 0;
+        transform.position = newPosition;
     }
 }
