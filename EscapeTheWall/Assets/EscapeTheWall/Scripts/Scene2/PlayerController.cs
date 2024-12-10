@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Movement Settings")]
     public float MoveSpeed = 5f;
-    public float ClimbForce = 10f;
+    public float JumpForce = 1f;
+    public float FallMultiplier = 2.5f;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -15,26 +17,37 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.IsGameOver())
-        {
-            Move();
+        if (GameManager.Instance == null || GameManager.Instance.IsGameOver())
+            return;
 
-            if (Input.GetButtonDown("Jump") && isGrounded)
-            {
-                Climb();
-            }
+        if (!isGrounded)
+        {
+            // Make player fall
+            rb.AddForce(new Vector2(0, -1 * FallMultiplier));
         }
+
+        Move();
+        HandleJump();
     }
 
     void Move()
     {
         float move = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(move * MoveSpeed, 0);
+        rb.AddForce(new Vector2(move * MoveSpeed, 0));
     }
 
-    void Climb()
+    void HandleJump()
     {
-        rb.AddForce(new Vector2(rb.velocity.x, ClimbForce), ForceMode2D.Impulse);
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            Jump();
+        }
+    }
+
+    void Jump()
+    {
+        rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
+        isGrounded = false;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -58,7 +71,10 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("VisionCone"))
         {
             Debug.Log("Player has been seen --> game over!");
-            GameManager.Instance.SetGameOver();
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.SetGameOver();
+            }
         }
     }
 }
