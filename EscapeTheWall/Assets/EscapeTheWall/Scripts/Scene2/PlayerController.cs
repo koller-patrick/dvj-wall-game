@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public float MoveSpeed = 5f;
     public float ClimbSpeed = 5f;
     public float FallMultiplier = 2.5f;
+    public float JumpForce = 1f;
 
     private Rigidbody2D rb;
     private bool canClimb;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
         Move();
         HandleClimb();
+        HandleJump();
     }
 
     void Move()
@@ -40,20 +42,29 @@ public class PlayerController : MonoBehaviour
             float climbInput = Input.GetAxis("Vertical");
             rb.velocity = new Vector2(rb.velocity.x, climbInput * ClimbSpeed);
         }
-        else if (!isGrounded)
+        else if (!isGrounded && !Input.GetButtonDown("Jump"))
         {
-            rb.velocity = new Vector2(rb.velocity.x, (-1) * FallMultiplier);
+            rb.AddForce(Vector2.down * FallMultiplier, ForceMode2D.Impulse);
         }
 
         transform.rotation = Quaternion.identity;
+    }
+
+    void HandleJump()
+    {
+        // Check if the player presses the jump key (Space by default)
+        if (Input.GetButtonDown("Jump") && isGrounded && !canClimb)
+        {
+            rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            canClimb = true; // Allow climbing when touching a wall
-            rb.gravityScale = 0; // Disable gravity while climbing
+            canClimb = true;
+            rb.gravityScale = 0;
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
@@ -65,12 +76,13 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            canClimb = false; // Disable climbing when not touching a wall
-            rb.gravityScale = 1; // Re-enable gravity
+            canClimb = false;
+            rb.gravityScale = 1;
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
+            rb.gravityScale = 1;
         }
     }
 
