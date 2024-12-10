@@ -43,9 +43,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (!isGrounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, -1);
-            rb.rotation = Quaternion.identity;
+            rb.velocity = new Vector2(rb.velocity.x, (-1) * FallMultiplier);
         }
+
+        transform.rotation = Quaternion.identity;
     }
 
     void OnCollisionEnter2D(Collision2D collision)

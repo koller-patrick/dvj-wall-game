@@ -1759,7 +1759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 5
   ClimbSpeed: 5
-  FallMultiplier: 2.5
+  FallMultiplier: 4
 --- !u!4 &1332505500 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 630916977493095129, guid: b18b026f2049fe04087b7871bb6fdf6b, type: 3}
