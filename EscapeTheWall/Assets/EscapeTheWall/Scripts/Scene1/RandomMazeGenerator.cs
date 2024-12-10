@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 public class RandomMazeGenerator : MonoBehaviour
 {
     public Tile[] houseWallTiles;
-    public Tile floorTile;
+    public Tile[] floorTiles;
 
     public GameObject player;
     public GameObject goalPrefab;
@@ -28,7 +28,7 @@ public class RandomMazeGenerator : MonoBehaviour
     private int width;
     private int height;
 
-    private void Start()
+    void Start()
     {
         CalculateMazeSizeFromCamera();
         SetupTilemaps();
@@ -44,9 +44,9 @@ public class RandomMazeGenerator : MonoBehaviour
         float cameraHeight = mainCamera.orthographicSize * 2;
 
         width = Mathf.RoundToInt(cameraHeight * aspectRatio);
-        height = Mathf.RoundToInt(cameraHeight);   
+        height = Mathf.RoundToInt(cameraHeight);
 
-        // Ensure width and height are odd to generate a proper maze
+        // Ensure width and height are odd
         if (width % 2 == 0) width++;
         if (height % 2 == 0) height++;
     }
@@ -62,7 +62,7 @@ public class RandomMazeGenerator : MonoBehaviour
             var renderer = houseTilemapObject.AddComponent<TilemapRenderer>();
             renderer.sortingLayerName = "Foreground";
 
-            // Add Collider and Rigidbody to the wall tilemap
+            // Add Collider and Physics
             AddCollidersAndPhysics(houseTilemapObject);
         }
 
@@ -81,10 +81,10 @@ public class RandomMazeGenerator : MonoBehaviour
 
         // Add Rigidbody2D
         Rigidbody2D rb2D = tilemapObject.AddComponent<Rigidbody2D>();
-        rb2D.bodyType = RigidbodyType2D.Static; // Make it static
-        rb2D.simulated = true; // Simulate the Rigidbody
+        rb2D.bodyType = RigidbodyType2D.Static;
+        rb2D.simulated = true;
 
-        // Add CompositeCollider2D and configure it
+        // Add CompositeCollider2D
         CompositeCollider2D compositeCollider = tilemapObject.AddComponent<CompositeCollider2D>();
         compositeCollider.geometryType = CompositeCollider2D.GeometryType.Polygons;
 
@@ -92,95 +92,94 @@ public class RandomMazeGenerator : MonoBehaviour
         tilemapCollider.usedByComposite = true;
     }
 
-private void GenerateMaze()
-{
-    // Initialize the maze grid
-    maze = new int[width, height];
-
-    // Initialize maze with walls and create outer boundaries
-    for (int x = 0; x < width; x++)
+    private void GenerateMaze()
     {
-        for (int y = 0; y < height; y++)
+        // Initialize the maze grid
+        maze = new int[width, height];
+
+        // Initialize maze with walls and create outer boundaries
+        for (int x = 0; x < width; x++)
         {
-            // Set the outer boundary as walls
-            if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
+            for (int y = 0; y < height; y++)
             {
-                maze[x, y] = 1; // 1 represents wall
-            }
-            else
-            {
-                maze[x, y] = 1; // Initially set all interior cells as walls
-            }
-        }
-    }
-
-    // Fill the entire tilemap with floor tiles (base layer)
-    for (int x = -width / 2; x < width / 2; x++)
-    {
-        for (int y = -height / 2; y < height / 2; y++)
-        {
-            Vector3Int tilePosition = new Vector3Int(x, y, 0);
-            floorTilemap.SetTile(tilePosition, floorTile);
-        }
-    }
-
-    // Carve out paths using Depth-First Search (DFS) starting from inside the borders
-    Vector2Int start = new Vector2Int(1, 1); // Start carving from (1, 1) to keep inside boundaries
-    maze[start.x, start.y] = 0;
-
-    Stack<Vector2Int> stack = new Stack<Vector2Int>();
-    stack.Push(start);
-
-    while (stack.Count > 0)
-    {
-        Vector2Int current = stack.Pop();
-        List<Vector2Int> neighbors = GetValidNeighbors(current);
-
-        if (neighbors.Count > 0)
-        {
-            stack.Push(current);
-
-            // Choose a random neighbor to move to
-            Vector2Int chosenNeighbor = neighbors[Random.Range(0, neighbors.Count)];
-
-            // Remove the wall between the current cell and the chosen neighbor
-            Vector2Int between = current + (chosenNeighbor - current) / 2;
-            maze[between.x, between.y] = 0;
-            maze[chosenNeighbor.x, chosenNeighbor.y] = 0;
-
-            stack.Push(chosenNeighbor);
-        }
-    }
-
-    // Draw the maze with the walls and paths on the tilemap
-    DrawMaze();
-}
-
-private void DrawMaze()
-{
-    // Clear all tiles in wall tilemaps
-    foreach (var houseTilemap in houseTilemaps)
-    {
-        houseTilemap.ClearAllTiles();
-    }
-
-    // Draw the walls based on the generated maze
-    for (int x = 0; x < width; x++)
-    {
-        for (int y = 0; y < height; y++)
-        {
-            Vector3Int tilePosition = new Vector3Int(x - width / 2, y - height / 2, 0); // Adjust position to center the maze
-            int mazeValue = maze[x, y];
-
-            if (mazeValue == 1)
-            {
-                // Draw wall tiles
-                int houseIndex = (Mathf.Abs(x + y) % houseTilemaps.Length); // Alternate between house tilemaps
-                houseTilemaps[houseIndex].SetTile(tilePosition, houseWallTiles[houseIndex]);
+                // Set the outer boundary as walls
+                if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
+                {
+                    maze[x, y] = 1; // 1 represents wall
+                }
+                else
+                {
+                    maze[x, y] = 1; // Initially set all interior cells as walls
+                }
             }
         }
+
+        // Fill the entire tilemap with random floor tiles
+        for (int x = -width / 2; x < width / 2; x++)
+        {
+            for (int y = -height / 2; y < height / 2; y++)
+            {
+                Vector3Int tilePosition = new Vector3Int(x, y, 0);
+                floorTilemap.SetTile(tilePosition, GetRandomFloorTile());
+            }
+        }
+
+        // Carve out paths using DFS
+        Vector2Int start = new Vector2Int(1, 1);
+        maze[start.x, start.y] = 0;
+
+        Stack<Vector2Int> stack = new Stack<Vector2Int>();
+        stack.Push(start);
+
+        while (stack.Count > 0)
+        {
+            Vector2Int current = stack.Pop();
+            List<Vector2Int> neighbors = GetValidNeighbors(current);
+
+            if (neighbors.Count > 0)
+            {
+                stack.Push(current);
+
+                // Choose a random neighbor
+                Vector2Int chosenNeighbor = neighbors[Random.Range(0, neighbors.Count)];
+
+                // Remove the wall between current and chosenNeighbor
+                Vector2Int between = current + (chosenNeighbor - current) / 2;
+                maze[between.x, between.y] = 0;
+                maze[chosenNeighbor.x, chosenNeighbor.y] = 0;
+
+                stack.Push(chosenNeighbor);
+            }
+        }
+
+        // Draw the maze with walls
+        DrawMaze();
     }
-}
+
+    private void DrawMaze()
+    {
+        // Clear all tiles in wall tilemaps
+        foreach (var houseTilemap in houseTilemaps)
+        {
+            houseTilemap.ClearAllTiles();
+        }
+
+        // Draw walls
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                Vector3Int tilePosition = new Vector3Int(x - width / 2, y - height / 2, 0);
+                int mazeValue = maze[x, y];
+
+                if (mazeValue == 1)
+                {
+                    int houseIndex = (Mathf.Abs(x + y) % houseTilemaps.Length);
+                    houseTilemaps[houseIndex].SetTile(tilePosition, houseWallTiles[houseIndex]);
+                }
+            }
+        }
+    }
 
     private List<Vector2Int> GetValidNeighbors(Vector2Int current)
     {
@@ -202,11 +201,9 @@ private void DrawMaze()
         return validNeighbors;
     }
 
-
-
     private void PlacePlayerAndGoal()
     {
-        // Find a valid player start position (on floor, not on wall)
+        // Find a valid player start position on the floor
         do
         {
             playerStartPosition = FindRandomFloorPosition(-width / 2, width / 2, -height / 2, height / 2);
@@ -214,16 +211,16 @@ private void DrawMaze()
 
         player.transform.position = floorTilemap.CellToWorld(playerStartPosition) + new Vector3(0.5f, 0.5f, 0);
 
-        // Use BFS to find the position farthest from the player
+        // Find furthest floor position using BFS
         goalPosition = FindFurthestFloorPosition(playerStartPosition);
 
-        // Instantiate the goal object at the valid position
-        GameObject goal = Instantiate(goalPrefab, floorTilemap.CellToWorld(goalPosition) + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+        // Instantiate the goal
+        Instantiate(goalPrefab, floorTilemap.CellToWorld(goalPosition) + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
     }
 
     private Vector3Int FindFurthestFloorPosition(Vector3Int start)
     {
-        // Use BFS to find the farthest reachable floor position from the start
+        // BFS to find the farthest floor position
         var visited = new HashSet<Vector3Int>();
         var queue = new Queue<Vector3Int>();
         queue.Enqueue(start);
@@ -237,7 +234,9 @@ private void DrawMaze()
             foreach (var direction in new Vector3Int[] { Vector3Int.up, Vector3Int.down, Vector3Int.left, Vector3Int.right })
             {
                 Vector3Int neighbor = current + direction;
-                if (!visited.Contains(neighbor) && floorTilemap.GetTile(neighbor) == floorTile && maze[neighbor.x + width / 2, neighbor.y + height / 2] == 0)
+                if (!visited.Contains(neighbor) 
+                    && IsFloorTile(floorTilemap.GetTile(neighbor)) 
+                    && maze[neighbor.x + width / 2, neighbor.y + height / 2] == 0)
                 {
                     visited.Add(neighbor);
                     queue.Enqueue(neighbor);
@@ -250,21 +249,20 @@ private void DrawMaze()
 
     private Vector3Int FindRandomFloorPosition(int minX, int maxX, int minY, int maxY)
     {
-        int x, y;
         Vector3Int position;
         do
         {
-            x = Random.Range(minX, maxX);
-            y = Random.Range(minY, maxY);
+            int x = Random.Range(minX, maxX);
+            int y = Random.Range(minY, maxY);
             position = new Vector3Int(x, y, 0);
-        } while (floorTilemap.GetTile(position) != floorTile); // Ensure the position is on the floor tilemap
+        } while (!IsFloorTile(floorTilemap.GetTile(position)));
 
         return position;
     }
 
     private bool IsPathReachable(Vector3Int start, Vector3Int end)
     {
-        // Using breadth-first search to check path reachability
+        // BFS to check reachability
         var visited = new HashSet<Vector3Int>();
         var queue = new Queue<Vector3Int>();
         queue.Enqueue(start);
@@ -281,7 +279,9 @@ private void DrawMaze()
             foreach (var direction in new Vector3Int[] { Vector3Int.up, Vector3Int.down, Vector3Int.left, Vector3Int.right })
             {
                 Vector3Int neighbor = current + direction;
-                if (!visited.Contains(neighbor) && floorTilemap.GetTile(neighbor) == floorTile && maze[neighbor.x + width / 2, neighbor.y + height / 2] == 0)
+                if (!visited.Contains(neighbor) 
+                    && IsFloorTile(floorTilemap.GetTile(neighbor)) 
+                    && maze[neighbor.x + width / 2, neighbor.y + height / 2] == 0)
                 {
                     visited.Add(neighbor);
                     queue.Enqueue(neighbor);
@@ -291,4 +291,20 @@ private void DrawMaze()
 
         return false;
     }
+
+    private bool IsFloorTile(TileBase tile)
+    {
+        if (tile == null) return false;
+        foreach (var ft in floorTiles)
+        {
+            if (tile == ft) return true;
+        }
+        return false;
+    }
+
+    private Tile GetRandomFloorTile()
+    {
+        return floorTiles[Random.Range(0, floorTiles.Length)];
+    }
 }
+
