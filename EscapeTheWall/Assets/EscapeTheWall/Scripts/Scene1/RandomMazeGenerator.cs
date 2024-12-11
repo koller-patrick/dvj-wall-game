@@ -46,9 +46,12 @@ public class RandomMazeGenerator : MonoBehaviour
         width = Mathf.RoundToInt(cameraHeight * aspectRatio);
         height = Mathf.RoundToInt(cameraHeight);
 
-        // Ensure width and height are odd
-        if (width % 2 == 0) width++;
-        if (height % 2 == 0) height++;
+        width -= 10;
+        height -= 4;
+
+        // // Ensure width and height are odd
+        // if (width % 2 == 0) width++;
+        // if (height % 2 == 0) height++;
     }
 
     private void SetupTilemaps()
@@ -97,22 +100,21 @@ public class RandomMazeGenerator : MonoBehaviour
         // Initialize the maze grid
         maze = new int[width, height];
 
-        // Initialize maze with walls and create outer boundaries
-        for (int x = 0; x < width; x++)
+          // Set boundaries as walls
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
         {
-            for (int y = 0; y < height; y++)
+            if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
             {
-                // Set the outer boundary as walls
-                if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
-                {
-                    maze[x, y] = 1; // 1 represents wall
-                }
-                else
-                {
-                    maze[x, y] = 1; // Initially set all interior cells as walls
-                }
+                maze[x, y] = 1; // Outer boundary walls
+            }
+            else
+            {
+                maze[x, y] = 1; // Start interiors as walls (carving will remove them)
             }
         }
+    }
 
         // Fill the entire tilemap with random floor tiles
         for (int x = -width / 2; x < width / 2; x++)
