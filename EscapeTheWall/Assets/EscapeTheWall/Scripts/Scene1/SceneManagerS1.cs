@@ -7,7 +7,7 @@ public class SceneManagerS1 : Singleton<SceneManagerS1>
 
     private int currentSceneIndex = 0;
     [SerializeField]
-    private int lastSceneIndex = 3;
+    private int lastSceneIndex = 4;
 
     void Start()
     {

@@ -55,6 +55,7 @@ public class PlayerMovement : MovingPieces
                     Consumable consumable = whatIsInFront.GetComponent<Consumable>();
                     consumable.Consume();
                     transform.position = newPosition;
+                    
                 }
 
                 // Set isMoving to false after finishing the movement (simulating the move completion)

@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341becc33739c2a4fbeccfed52c20811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastSceneIndex: 3
+  lastSceneIndex: 4
 --- !u!4 &451740896
 Transform:
   m_ObjectHideFlags: 0
@@ -641,7 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fe831bf36bd8e46bfeb2eef021aa48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inactiveDuration: 0.5
+  inactiveDuration: 1
   cooldown: 5
   cooldownText: {fileID: 429292440}
 --- !u!1 &1134125174
@@ -916,7 +916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1969929867}
-  timeRemaining: 300
+  timeRemaining: 40
   gameOverMenuPrefab: {fileID: 7055502797788153999, guid: 15a849302a7918a4fb1ddff4f2072779, type: 3}
 --- !u!4 &1679438569
 Transform:
