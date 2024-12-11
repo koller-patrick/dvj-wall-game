@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SceneManagerS1 : Singleton<SceneManagerS1>
 {
+
+    private int currentSceneIndex = 0;
+    [SerializeField]
+    private int lastSceneIndex = 3;
+
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -11,7 +16,17 @@ public class SceneManagerS1 : Singleton<SceneManagerS1>
 
     public void LoadNextScene()
     {
-        // Load the next scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
+        lastSceneIndex = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings - 1;
+        if (currentSceneIndex == lastSceneIndex)
+        {
+            // quit the game
+            Application.Quit();
+        }
+        else
+        {
+            // Load the next scene
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
     }
 }

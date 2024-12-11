@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
-    private int levelIndex = 0;
     private bool timerIsRunning = false;
 
     [SerializeField]
@@ -62,16 +61,7 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadNextLevel()
     {
-        levelIndex++;
-
-        if (levelIndex <= 3)
-        {
-            SceneManagerS1.Instance.LoadNextScene();
-        }
-        else
-        {
-            Application.Quit();
-        }
+        SceneManagerS1.Instance.LoadNextScene();    
     }
 
     public bool IsGameOver()
