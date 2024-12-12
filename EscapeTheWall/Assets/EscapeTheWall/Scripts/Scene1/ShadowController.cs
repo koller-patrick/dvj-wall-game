@@ -9,7 +9,7 @@ public class ShadowController : MonoBehaviour
 
     [Header("UI Settings")]
     [SerializeField] 
-    private TMPro.TextMeshProUGUI cooldownText; // Assign this in the inspector
+    private TMPro.TextMeshProUGUI cooldownText;
 
     private SpriteRenderer spriteRenderer;
     private float timerToTurnOff;
@@ -25,7 +25,9 @@ public class ShadowController : MonoBehaviour
 
         // Initially, no cooldown text is displayed
         if (cooldownText != null)
-            cooldownText.text = "You can use the light!";
+        {
+            cooldownText.text = "You can use the light (L-Key)!";
+        }
     }
 
     void Update()
@@ -41,15 +43,18 @@ public class ShadowController : MonoBehaviour
                     timerToCooldown -= Time.deltaTime;
                     // Update UI text; show only whole seconds or to one decimal place
                     if (cooldownText != null)
+                    { 
                         cooldownText.text = "Cooldown: " + Mathf.Ceil(timerToCooldown).ToString() + "s";
+                    }
                 }
                 else
                 {
                     // Cooldown ended, player can activate again
                     canActivateLight = true;
-                    // Clear the text
                     if (cooldownText != null)
-                        cooldownText.text = "You can use the light!";
+                    {
+                        cooldownText.text = "You can use the light (L-Key)!";
+                    }
                 }
             }
             else if (Input.GetKeyDown(KeyCode.L))
@@ -81,7 +86,9 @@ public class ShadowController : MonoBehaviour
 
                 // Start showing the cooldown text again
                 if (cooldownText != null)
+                {
                     cooldownText.text = "Cooldown: " + Mathf.Ceil(timerToCooldown).ToString() + "s";
+                }
             }
         }
     }

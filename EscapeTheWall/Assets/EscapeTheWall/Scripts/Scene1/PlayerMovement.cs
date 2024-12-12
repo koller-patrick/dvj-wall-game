@@ -46,6 +46,13 @@ public class PlayerMovement : MovingPieces
                 GameObject whatIsInFront = WhatInThisPosition(newPosition);
                 if (whatIsInFront == null)
                 {
+                    animator.SetTrigger("Walk");
+
+                    // Rotate the player in the walking direction
+                    float angle = Mathf.Atan2(addThisVector.y, addThisVector.x) * Mathf.Rad2Deg;
+                    angle -= 90f;
+                    transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
                     // Move to the new position if there's nothing in front
                     transform.position = newPosition;
                 }
@@ -55,7 +62,6 @@ public class PlayerMovement : MovingPieces
                     Consumable consumable = whatIsInFront.GetComponent<Consumable>();
                     consumable.Consume();
                     transform.position = newPosition;
-                    
                 }
 
                 // Set isMoving to false after finishing the movement (simulating the move completion)

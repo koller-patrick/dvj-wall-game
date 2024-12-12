@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.SetGameOver();
+                rb.velocity = new Vector2(0, 0); // stop movement
             }
         }
         else if (other.CompareTag("Consumable"))
@@ -107,6 +108,7 @@ public class PlayerController : MonoBehaviour
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.SetGameOver();
+                rb.velocity = new Vector2(0, 0); // stop movement
             }
         }
     }
