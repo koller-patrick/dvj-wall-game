@@ -8,6 +8,7 @@ public class PlayerMovement : MovingPieces
     void Start()
     {
         animator = GetComponent<Animator>();
+        animator.speed = 2;
     }
 
     void Update()

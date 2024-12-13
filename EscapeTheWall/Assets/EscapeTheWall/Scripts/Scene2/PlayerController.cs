@@ -9,12 +9,14 @@ public class PlayerController : MonoBehaviour
     public float JumpForce = 1f;
 
     private Rigidbody2D rb;
+    private Animator animator;
     private bool canClimb;
     private bool isGrounded;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         float moveInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveInput * MoveSpeed, rb.velocity.y);
+        animator.SetTrigger("Walk");
     }
 
     void HandleClimb()
