@@ -5,6 +5,7 @@ using UnityEngine;
 /// </summary>
 public class GameManager : Singleton<GameManager>
 {
+    [Header("Timer Settings")]
     // Indicates whether the timer is active
     private bool timerIsRunning = false;
 
@@ -19,20 +20,45 @@ public class GameManager : Singleton<GameManager>
     // Indicates whether the game has ended
     private bool hasGameEnded = false;
 
+    [Header("Audio Settings")]
+    // Reference to the AudioSource component
+    [SerializeField]
+    private AudioClip gameAudio;
 
     /// <summary>
-    /// Initializes the game timer and state.
+    /// Initializes the game timer, state, and audio.
     /// </summary>
     private void Start()
     {
+        // Ensure the timer text is assigned
         if (timerText == null)
         {
             Debug.LogError("TimerText is not assigned in the inspector.");
             return;
         }
 
+        // Initialize the timer text and state
         timerText.text = "Time: 30";
         timerIsRunning = true;
+
+        // Ensure the audio source is assigned and start playing
+        if (gameAudio == null)
+        {
+            Debug.LogError("AudioSource is not assigned in the inspector.");
+        }
+        else
+        {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.clip = gameAudio;
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.LogError("AudioSource component not found on GameManager object.");
+            }
+        }
     }
 
     /// <summary>
@@ -85,4 +111,3 @@ public class GameManager : Singleton<GameManager>
         SceneManagerETW.Instance.ShowGameOverMenu();
     }
 }
-
