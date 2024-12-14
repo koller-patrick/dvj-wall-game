@@ -17,6 +17,12 @@ public class RandomMazeGenerator : MonoBehaviour
     public GameObject player; // Reference to the player GameObject
     public GameObject goalPrefab; // Prefab for the goal object to be placed in the maze
 
+    [Header("Maze Size")]
+    [SerializeField]
+    private int width = 20; // Maze width in tiles
+    [SerializeField]
+    private int height = 16; // Maze height in tiles
+
     // --- Internal State ---
 
     private Tilemap[] houseTilemaps; // Array of tilemaps for different layers of maze walls
@@ -30,14 +36,11 @@ public class RandomMazeGenerator : MonoBehaviour
         Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right // Directions for maze generation
     };
 
-    private int width; // Maze width in tiles
-    private int height; // Maze height in tiles
-
     // --- Unity Lifecycle ---
 
     void Start()
     {
-        CalculateMazeSizeFromCamera(); // Dynamically set maze size based on camera view
+        // CalculateMazeSizeFromCamera(); // Dynamically set maze size based on camera view
         SetupTilemaps(); // Initialize the tilemaps for walls and floors
         GenerateMaze(); // Create the maze layout
         PlacePlayerAndGoal(); // Place the player and goal in the maze
@@ -56,9 +59,8 @@ public class RandomMazeGenerator : MonoBehaviour
 
         width = Mathf.RoundToInt(cameraHeight * aspectRatio); // Adjust width based on aspect ratio
         height = Mathf.RoundToInt(cameraHeight); // Adjust height based on camera size
-
-        width -= 10; // Subtract a margin from width for better gameplay
-        height -= 4; // Subtract a margin from height for better gameplay
+        
+        Debug.Log($"Maze size: {width}x{height}");
     }
 
     // --- Tilemap Initialization ---

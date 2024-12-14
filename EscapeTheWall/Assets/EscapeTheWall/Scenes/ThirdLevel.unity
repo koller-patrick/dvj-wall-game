@@ -152,8 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1401044240}
-  timeRemaining: 300
-  gameOverMenuPrefab: {fileID: 7055502797788153999, guid: 15a849302a7918a4fb1ddff4f2072779, type: 3}
+  timeRemaining: 50
 --- !u!4 &21224985
 Transform:
   m_ObjectHideFlags: 0
@@ -559,6 +558,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e53b7b1eec61c1f46a9b06d5f8519cbb, type: 2}
   player: {fileID: 1244752728}
   goalPrefab: {fileID: 7070695363413716461, guid: 16bc8b0dee25eb14ca02ce14563baa4e, type: 3}
+  width: 24
+  height: 20
 --- !u!156049354 &1139532075
 Grid:
   m_ObjectHideFlags: 0
