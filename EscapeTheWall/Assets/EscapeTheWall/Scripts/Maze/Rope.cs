@@ -9,6 +9,6 @@ public class Rope : MonoBehaviour, Consumable
         Debug.Log("Collected rope, going to next level...");
 
         // reached goal, so move to next level
-        GameManager.Instance.LoadNextLevel();
+        SceneManagerETW.Instance.LoadNextScene();
     }
 }

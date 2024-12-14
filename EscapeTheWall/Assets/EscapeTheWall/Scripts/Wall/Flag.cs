@@ -8,6 +8,7 @@ public class Flag : MonoBehaviour, Consumable
 
         Debug.Log("Finished passing the wall, going to next level...");
 
-        GameManager.Instance.LoadNextLevel();
+        // reached goal, so move to next level
+        SceneManagerETW.Instance.LoadNextScene();
     }
 }

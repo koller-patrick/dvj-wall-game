@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/EscapeTheWall/Scenes/SecondLevel.unity
     guid: 7029b65e5dbbbe047be549a8178514c1
   - enabled: 1
-    path: Assets/EscapeTheWall/Scenes/ThirdScene.unity
+    path: Assets/EscapeTheWall/Scenes/ThirdLevel.unity
     guid: ad3abe4767401434db0d7a7a4dd0a685
   - enabled: 1
     path: Assets/EscapeTheWall/Scenes/ForthLevel.unity
