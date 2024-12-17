@@ -12,11 +12,11 @@ EditorBuildSettings:
     path: Assets/EscapeTheWall/Scenes/FirstLevel.unity
     guid: 0c4818c34692bce479d70972d9347b86
   - enabled: 1
-    path: Assets/EscapeTheWall/Scenes/SecondLevel.unity
-    guid: 7029b65e5dbbbe047be549a8178514c1
-  - enabled: 1
     path: Assets/CutScenes/Second cutscene/Second Cutscene.unity
     guid: 45fca92b83fa88b4baef4de688162b4f
+  - enabled: 1
+    path: Assets/EscapeTheWall/Scenes/SecondLevel.unity
+    guid: 7029b65e5dbbbe047be549a8178514c1
   - enabled: 1
     path: Assets/EscapeTheWall/Scenes/ThirdLevel.unity
     guid: ad3abe4767401434db0d7a7a4dd0a685

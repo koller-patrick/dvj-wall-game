@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class CutSceneManager : MonoBehaviour
 {
 
-    private float timer = 15;
+    [SerializeField]
+    private float timer = 19;
 
     // Start is called before the first frame update
     void Start()
