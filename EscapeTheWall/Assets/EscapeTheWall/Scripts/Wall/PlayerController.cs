@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (!isGrounded && !Input.GetButtonDown("Jump"))
         {
-            Debug.Log("Fall down");
             // Apply downward force for faster falling
             rb.AddForce(Vector2.down * FallMultiplier, ForceMode2D.Impulse);
         }
