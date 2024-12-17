@@ -3033,7 +3033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 89363652}
   timeRemaining: 1000
-  gameOverMenuPrefab: {fileID: 7055502797788153999, guid: 15a849302a7918a4fb1ddff4f2072779, type: 3}
+  gameAudio: {fileID: 8300000, guid: b5045df1e8d44e144840a0de3db739e5, type: 3}
 --- !u!4 &2103401005
 Transform:
   m_ObjectHideFlags: 0
