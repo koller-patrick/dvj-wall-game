@@ -13,6 +13,19 @@ public class GuardVision : MonoBehaviour
     private float currentRotation = 0f; // Tracks the guard's current rotation angle
     private bool rotatingForward = true; // Tracks the rotation direction (true = increasing, false = decreasing)
 
+    [Header("Audio Settings")]
+    // Reference to the AudioSource component
+    [SerializeField]
+    private AudioClip sweepingAudio;
+
+    /// <summary>
+    /// Start
+    /// </summary>
+    void Start()
+    {
+        
+    } 
+    
     /// <summary>
     /// Updates the guard's rotation every frame.
     /// </summary>
