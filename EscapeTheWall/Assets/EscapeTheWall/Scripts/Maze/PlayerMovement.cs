@@ -12,11 +12,33 @@ public class PlayerMovement : MovingPieces
     // Indicates whether the player is currently moving
     private bool isMoving = false;
 
+    [Header("Audio Settings")]
+    // Reference to the AudioSource component
+    [SerializeField]
+    private AudioClip walkAudio;
+
+    private AudioSource audioSource;
+
     /// <summary>
     /// Initializes the player's animator and sets its speed.
     /// </summary>
     void Start()
     {
+        if (walkAudio == null)
+        {
+            Debug.LogError("AudioSource is not assigned in the inspector.");
+        }else {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.clip = walkAudio;
+            }
+            else
+            {
+                Debug.LogError("AudioSource component not found on Player object.");
+            }
+        }
+
         animator = GetComponent<Animator>();
         if (animator == null)
         {
@@ -69,6 +91,7 @@ public class PlayerMovement : MovingPieces
                 {
                     // No object in the way, move the player
                     animator.SetTrigger("Walk");
+                    audioSource.Play();
 
                     // Rotate the player to face the movement direction
                     float angle = Mathf.Atan2(movementDirection.y, movementDirection.x) * Mathf.Rad2Deg - 90f;
