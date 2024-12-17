@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float MoveSpeed = 5f;       // Horizontal movement speed
     public float ClimbSpeed = 5f;      // Climbing speed
-    public float FallMultiplier = 2.5f; // Additional downward force for faster falling
+    public float FallMultiplier = 3f; // Additional downward force for faster falling
     public float JumpForce = 1f;       // Upward force applied when jumping
 
     private Rigidbody2D rb;           // Reference to the Rigidbody2D component
@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (!isGrounded && !Input.GetButtonDown("Jump"))
         {
+            Debug.Log("Fall down");
             // Apply downward force for faster falling
             rb.AddForce(Vector2.down * FallMultiplier, ForceMode2D.Impulse);
         }
@@ -100,6 +101,10 @@ public class PlayerController : MonoBehaviour
         {
             // Mark the player as grounded
             isGrounded = true;
+        }
+        else
+        {
+            rb.gravityScale = 1; // Re-enable gravity
         }
     }
 

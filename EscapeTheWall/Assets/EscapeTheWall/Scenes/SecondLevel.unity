@@ -2902,7 +2902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4806918191276726750, guid: e51a33a5147869043a6ffeffdf6f951c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.28
+      value: 5.06
       objectReference: {fileID: 0}
     - target: {fileID: 4806918191276726750, guid: e51a33a5147869043a6ffeffdf6f951c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3032,7 +3032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 89363652}
-  timeRemaining: 1000
+  timeRemaining: 60
   gameAudio: {fileID: 8300000, guid: b5045df1e8d44e144840a0de3db739e5, type: 3}
 --- !u!4 &2103401005
 Transform:
