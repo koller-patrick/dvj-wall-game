@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/EscapeTheWall/Scenes/STARTMenu.unity
+    guid: bd563a7eda816db40bdb968620e9c2ab
+  - enabled: 1
     path: Assets/CutScenes/Intro/Intro.unity
     guid: 082ca30ff8dd3574490d18aa2dd27532
   - enabled: 1
