@@ -67,6 +67,6 @@ public class SceneManagerETW : Singleton<SceneManagerETW>
     /// </summary>
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(0);
     }
 }
