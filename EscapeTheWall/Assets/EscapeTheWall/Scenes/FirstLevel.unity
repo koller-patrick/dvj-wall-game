@@ -887,8 +887,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e53b7b1eec61c1f46a9b06d5f8519cbb, type: 2}
   player: {fileID: 1913624822}
   goalPrefab: {fileID: 7070695363413716461, guid: 16bc8b0dee25eb14ca02ce14563baa4e, type: 3}
-  width: 20
-  height: 16
+  width: 21
+  height: 17
 --- !u!1 &1679438567
 GameObject:
   m_ObjectHideFlags: 0

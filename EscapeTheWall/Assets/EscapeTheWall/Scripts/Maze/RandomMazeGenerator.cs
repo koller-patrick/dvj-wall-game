@@ -7,63 +7,37 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class RandomMazeGenerator : MonoBehaviour
 {
-    // --- Configuration ---
-
     [Header("Maze Configuration")]
-    public Tile[] houseWallTiles; // Array of wall tiles used to build the maze walls
-    public Tile[] floorTiles; // Array of floor tiles used to fill the maze floor
+    public Tile[] houseWallTiles;
+    public Tile[] floorTiles;
 
     [Header("Player and Goal")]
-    public GameObject player; // Reference to the player GameObject
-    public GameObject goalPrefab; // Prefab for the goal object to be placed in the maze
+    public GameObject player;
+    public GameObject goalPrefab;
 
     [Header("Maze Size")]
     [SerializeField]
-    private int width = 20; // Maze width in tiles
+    private int width = 20;
     [SerializeField]
-    private int height = 16; // Maze height in tiles
+    private int height = 17;
 
-    // --- Internal State ---
+    private Tilemap[] houseTilemaps;
+    private Tilemap floorTilemap;
+    private Vector3Int playerStartPosition;
+    private Vector3Int goalPosition;
 
-    private Tilemap[] houseTilemaps; // Array of tilemaps for different layers of maze walls
-    private Tilemap floorTilemap; // Tilemap used to draw the maze floor
-    private Vector3Int playerStartPosition; // Position where the player starts in the maze
-    private Vector3Int goalPosition; // Position where the goal is placed
-
-    private int[,] maze; // 2D array representing the maze (0 = floor, 1 = wall)
+    private int[,] maze;
     private Vector2Int[] directions = new Vector2Int[]
     {
-        Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right // Directions for maze generation
+        Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right
     };
-
-    // --- Unity Lifecycle ---
 
     void Start()
     {
-        // CalculateMazeSizeFromCamera(); // Dynamically set maze size based on camera view
-        SetupTilemaps(); // Initialize the tilemaps for walls and floors
-        GenerateMaze(); // Create the maze layout
-        PlacePlayerAndGoal(); // Place the player and goal in the maze
+        SetupTilemaps();
+        GenerateMaze();
+        PlacePlayerAndGoal();
     }
-
-    // --- Maze Size Calculation ---
-
-    /// <summary>
-    /// Calculates the maze dimensions based on the camera's viewport size.
-    /// </summary>
-    private void CalculateMazeSizeFromCamera()
-    {
-        Camera mainCamera = Camera.main;
-        float aspectRatio = mainCamera.aspect;
-        float cameraHeight = mainCamera.orthographicSize * 2;
-
-        width = Mathf.RoundToInt(cameraHeight * aspectRatio); // Adjust width based on aspect ratio
-        height = Mathf.RoundToInt(cameraHeight); // Adjust height based on camera size
-        
-        Debug.Log($"Maze size: {width}x{height}");
-    }
-
-    // --- Tilemap Initialization ---
 
     /// <summary>
     /// Creates and configures the tilemaps for the maze walls and floor.
@@ -104,8 +78,6 @@ public class RandomMazeGenerator : MonoBehaviour
         compositeCollider.geometryType = CompositeCollider2D.GeometryType.Polygons;
         tilemapCollider.usedByComposite = true;
     }
-
-    // --- Maze Generation ---
 
     /// <summary>
     /// Generates a random maze using a depth-first search algorithm.
@@ -206,8 +178,6 @@ public class RandomMazeGenerator : MonoBehaviour
         return validNeighbors;
     }
 
-    // --- Player and Goal Placement ---
-
     /// <summary>
     /// Places the player and goal at valid positions in the maze.
     /// </summary>
@@ -275,11 +245,19 @@ public class RandomMazeGenerator : MonoBehaviour
     /// </summary>
     private bool IsFloorTile(TileBase tile)
     {
-        if (tile == null) return false;
-        foreach (var ft in floorTiles)
+        if (tile == null)
         {
-            if (tile == ft) return true;
+            return false;
         }
+
+        foreach (Tile ft in floorTiles)
+        {
+            if (tile == ft) 
+            {
+                return true; 
+            }
+        }
+
         return false;
     }
 
