@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/EscapeTheWall/Scenes/SecondLevel.unity
     guid: 7029b65e5dbbbe047be549a8178514c1
   - enabled: 1
-    path: Assets/CutScenes/Third cutscene/Third cutscene/Third cutscene.unity
+    path: Assets/CutScenes/Third cutscene/Third cutscene.unity
     guid: 574686cc3134ec1409cd700bd8687b3d
   - enabled: 1
     path: Assets/EscapeTheWall/Scenes/ThirdLevel.unity

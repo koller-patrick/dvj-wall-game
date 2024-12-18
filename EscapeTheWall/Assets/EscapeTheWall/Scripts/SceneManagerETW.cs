@@ -5,15 +5,13 @@ using UnityEngine.UI;
 
 public class SceneManagerETW : Singleton<SceneManagerETW>
 {
-
-    private int currentSceneIndex = 0;
     [SerializeField]
     private int lastSceneIndex = 4;
 
-    
+
     private Difficulty currentDifficulty;
 
-    
+
     // Reference to the Game Over menu prefab
     [SerializeField]
     private GameObject gameOverMenuPrefab;
@@ -32,31 +30,21 @@ public class SceneManagerETW : Singleton<SceneManagerETW>
             2 => Difficulty.Hard,
             _ => Difficulty.Easy,
         };
-        Debug.Log("Difficulty set to: " + currentDifficulty);   
+        Debug.Log("Difficulty set to: " + currentDifficulty);
     }
 
     public int GetDifficulty()
     {
-        return (int)currentDifficulty ;
+        return (int)currentDifficulty;
     }
 
     public void LoadNextScene()
     {
-        lastSceneIndex = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings - 1;
-        if (currentSceneIndex == lastSceneIndex)
-        {
-            // quit the game
-            Application.Quit();
-        }
-        else
-        {
-            // Load the next scene
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
-        }
-
+        // Load the next scene
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    
+
     /// <summary>
     /// Displays the Game Over menu and sets up button listeners.
     /// </summary>
