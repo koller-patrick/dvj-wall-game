@@ -37,8 +37,12 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
+        timeRemaining -= SceneManagerETW.Instance.GetDifficulty() * 7;
+
+        Debug.Log("Time remaining: " + timeRemaining);
+
         // Initialize the timer text and state
-        timerText.text = "Time: 30";
+        timerText.text = "Time: --";
         timerIsRunning = true;
 
         // Ensure the audio source is assigned and start playing
@@ -60,6 +64,7 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+
 
     /// <summary>
     /// Updates the game timer and handles game-over logic.

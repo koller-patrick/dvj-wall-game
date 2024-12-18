@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 2060139359}
-  timeRemaining: 60
+  timeRemaining: 120
   gameAudio: {fileID: 8300000, guid: b5045df1e8d44e144840a0de3db739e5, type: 3}
 --- !u!4 &557338462
 Transform:

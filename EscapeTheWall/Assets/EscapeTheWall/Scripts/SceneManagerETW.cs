@@ -35,6 +35,11 @@ public class SceneManagerETW : Singleton<SceneManagerETW>
         Debug.Log("Difficulty set to: " + currentDifficulty);   
     }
 
+    public int GetDifficulty()
+    {
+        return (int)currentDifficulty ;
+    }
+
     public void LoadNextScene()
     {
         lastSceneIndex = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings - 1;
