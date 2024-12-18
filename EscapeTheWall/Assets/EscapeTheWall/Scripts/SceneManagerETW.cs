@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,6 +11,9 @@ public class SceneManagerETW : Singleton<SceneManagerETW>
     private int lastSceneIndex = 4;
 
     
+    private Difficulty currentDifficulty;
+
+    
     // Reference to the Game Over menu prefab
     [SerializeField]
     private GameObject gameOverMenuPrefab;
@@ -17,6 +21,18 @@ public class SceneManagerETW : Singleton<SceneManagerETW>
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void SetDifficulty(int difficulty)
+    {
+        currentDifficulty = difficulty switch
+        {
+            0 => Difficulty.Easy,
+            1 => Difficulty.Medium,
+            2 => Difficulty.Hard,
+            _ => Difficulty.Easy,
+        };
+        Debug.Log("Difficulty set to: " + currentDifficulty);   
     }
 
     public void LoadNextScene()
