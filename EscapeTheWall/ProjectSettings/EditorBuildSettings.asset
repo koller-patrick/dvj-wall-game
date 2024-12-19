@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/EscapeTheWall/Scenes/ForthLevel.unity
     guid: 02ecc027b3f21a9438c643602837e60a
+  - enabled: 1
+    path: Assets/EscapeTheWall/Scenes/Ending.unity
+    guid: 9cb3377ad7e14644295711766c539f4d
   m_configObjects: {}
